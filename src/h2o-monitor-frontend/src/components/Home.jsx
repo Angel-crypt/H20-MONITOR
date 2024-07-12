@@ -1,19 +1,20 @@
 import React from 'react';
 import { useConnect } from "@connect2ic/react";
-import { BrowserRouter, Route, Link, Routes } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ConnectButton, ConnectDialog } from "@connect2ic/react";
+import Monitor from './Monitor';
 
 const Home = () => {
     const { principal } = useConnect();
 
     return (
-        <BrowserRouter>
+        <div>
             <nav className="navbar navbar-dark bg-dark" data-bs-theme="light">
                 {principal ? (
                     <div className="container">
                         <div className="col-sm-2">
                             <button className="btn btn-primary btn-lg">
-                                <Link to='/monitor'>Monitor H2O</Link>
+                                <Link to='/monitor' className="nav-link">Monitor H2O</Link>
                             </button>
                         </div>
                         <ConnectButton />
@@ -27,7 +28,7 @@ const Home = () => {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li className="nav-item">
-                                    <a className="nav-link active" aria-current="page" href="#"></a>
+                                    <a className="nav-link active" aria-current="page" href="#">Home</a>
                                 </li>
                             </ul>
                             <ConnectButton />
@@ -36,10 +37,7 @@ const Home = () => {
                     </div>
                 )}
             </nav>
-            <Routes>
-                <Route path="/monitor" element={<Monitor />} />
-            </Routes>
-        </BrowserRouter>
+        </div>
     );
 }
 

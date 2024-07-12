@@ -9,13 +9,13 @@ const Auth = () => {
 
     useEffect(() => {
         if (isConnected) {
-            navigate('/monitor');
+            navigate('/home');
         }
     }, [isConnected, navigate]);
 
     return (
         <div className="auth-container">
-            <h1>Por favor, autentíquese</h1>
+            <h1>Por favor, inicie sesión</h1>
             <ConnectButton />
             <ConnectDialog />
         </div>
