@@ -1,26 +1,13 @@
-import React, { useState } from 'react';
-import * as  h2o_monitor_backend from 'declarations/h2o-monitor-backend';
-
-import Home from './components/Home';
-
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { createClient } from "@connect2ic/core";
 import { InternetIdentity } from "@connect2ic/core/providers/internet-identity";
-import { ConnectButton, ConnectDialog, Connect2ICProvider } from "@connect2ic/react";
-import { useCanister, useConnect } from "@connect2ic/react";
+import { Connect2ICProvider } from "@connect2ic/react";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "@connect2ic/core/style.css";
-
-function App() {
-
-  return (
-    <div className='contanier' >
-      {/* <Menu /> */}
-      <Home />
-      {/* <Login /> */}
-    </div>
-  );
-}
+import * as h2o_monitor_backend from 'declarations/h2o-monitor-backend';
+import Auth from './components/Auth';
+import Home from './components/Home';
+import Monitor from './components/Monitor';
 
 const client = createClient({
   canisters: {
@@ -34,8 +21,16 @@ const client = createClient({
   },
 });
 
-export default () => (
+const App = () => (
   <Connect2ICProvider client={client}>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Auth />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/monitor" element={<Monitor />} />
+      </Routes>
+    </BrowserRouter>
   </Connect2ICProvider>
 );
+
+export default App;
