@@ -14,7 +14,7 @@ const client = createClient({
     h2o_monitor_backend,
   },
   providers: [
-    new InternetIdentity({ providerUrl: "http://127.0.0.1:4943/?canisterId=be2us-64aaa-aaaaa-qaabq-cai" })
+    new InternetIdentity({ providerUrl: "http://127.0.0.1:4943/canisterId=be2us-64aaa-aaaaa-qaabq-cai" })
   ],
   globalProviderConfig: {
     dev: true,

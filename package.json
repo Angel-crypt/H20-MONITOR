@@ -14,5 +14,9 @@
   "type": "module",
   "workspaces": [
     "src/h2o-monitor-frontend"
-  ]
+  ],
+  "dependencies": {
+    "@bundly/ares-core": "^0.2.0",
+    "@bundly/ares-react": "^0.2.0"
+  }
 }
