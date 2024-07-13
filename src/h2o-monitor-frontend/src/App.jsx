@@ -1,31 +1,37 @@
-import { useState } from 'react';
-import { h2o_monitor_backend } from 'declarations/h2o-monitor-backend';
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { createClient } from "@connect2ic/core";
+import { InternetIdentity } from "@connect2ic/core/providers/internet-identity";
+import { Connect2ICProvider } from "@connect2ic/react";
 
-function App() {
-  const [greeting, setGreeting] = useState('');
+import * as h2o_monitor_backend from 'declarations/h2o-monitor-backend';
+import Auth from './components/Auth';
+import Home from './components/Home';
+import Monitor from './components/Monitor';
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const name = event.target.elements.name.value;
-    h2o_monitor_backend.greet(name).then((greeting) => {
-      setGreeting(greeting);
-    });
-    return false;
-  }
+const client = createClient({
+  canisters: {
+    h2o_monitor_backend,
+  },
+  providers: [
+    new InternetIdentity({ providerUrl: "http://127.0.0.1:8000/?canisterId=bkyz2-fmaaa-aaaaa-qaaaq-cai" })
+  ],
+  globalProviderConfig: {
+    dev: true,
+  },
+});
 
-  return (
-    <main>
-      <img src="/logo2.svg" alt="DFINITY logo" />
-      <br />
-      <br />
-      <form action="#" onSubmit={handleSubmit}>
-        <label htmlFor="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form>
-      <section id="greeting">{greeting}</section>
-    </main>
-  );
-}
+const App = () => (
+  <Connect2ICProvider client={client}>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Auth />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/monitor" element={<Monitor />} />
+      </Routes>
+    </BrowserRouter>
+  </Connect2ICProvider>
+);
 
 export default App;
+
