@@ -3,12 +3,16 @@ import type { ActorMethod } from '@dfinity/agent';
 import type { IDL } from '@dfinity/candid';
 
 export type Admin = Principal;
-export interface User { 'id' : Principal, 'name' : string }
+export interface User {
+  'id' : Principal,
+  'direccion' : string,
+  'numero_cuenta' : bigint,
+}
 export interface WaterMeter {
-  'id' : string,
   'status' : string,
-  'usage' : bigint,
-  'location' : string,
+  'ubicacion' : string,
+  'tarifa' : string,
+  'numero_medidor' : string,
 }
 export interface _SERVICE {
   'addWaterMeter' : ActorMethod<[WaterMeter], WaterMeter>,
@@ -17,8 +21,7 @@ export interface _SERVICE {
   'listAdmins' : ActorMethod<[], Array<Principal>>,
   'listUsers' : ActorMethod<[], Array<[Principal, User]>>,
   'registerAdmin' : ActorMethod<[], Admin>,
-  'registerUser' : ActorMethod<[string], User>,
-  'updateUser' : ActorMethod<[string], string>,
+  'registerUser' : ActorMethod<[bigint, string], User>,
   'updateWaterMeter' : ActorMethod<[string, WaterMeter], string>,
   'viewAllWaterMeters' : ActorMethod<[], Array<[string, WaterMeter]>>,
   'viewWaterMeter' : ActorMethod<[string], [] | [WaterMeter]>,

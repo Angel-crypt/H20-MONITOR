@@ -1,11 +1,15 @@
 export const idlFactory = ({ IDL }) => {
   const WaterMeter = IDL.Record({
-    'id' : IDL.Text,
     'status' : IDL.Text,
-    'usage' : IDL.Nat,
-    'location' : IDL.Text,
+    'ubicacion' : IDL.Text,
+    'tarifa' : IDL.Text,
+    'numero_medidor' : IDL.Text,
   });
-  const User = IDL.Record({ 'id' : IDL.Principal, 'name' : IDL.Text });
+  const User = IDL.Record({
+    'id' : IDL.Principal,
+    'direccion' : IDL.Text,
+    'numero_cuenta' : IDL.Nat,
+  });
   const Admin = IDL.Principal;
   return IDL.Service({
     'addWaterMeter' : IDL.Func([WaterMeter], [WaterMeter], []),
@@ -18,8 +22,7 @@ export const idlFactory = ({ IDL }) => {
         ['query'],
       ),
     'registerAdmin' : IDL.Func([], [Admin], []),
-    'registerUser' : IDL.Func([IDL.Text], [User], []),
-    'updateUser' : IDL.Func([IDL.Text], [IDL.Text], []),
+    'registerUser' : IDL.Func([IDL.Nat, IDL.Text], [User], []),
     'updateWaterMeter' : IDL.Func([IDL.Text, WaterMeter], [IDL.Text], []),
     'viewAllWaterMeters' : IDL.Func(
         [],

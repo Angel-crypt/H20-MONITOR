@@ -1,5 +1,6 @@
 import Principal "mo:base/Principal";
 import Text "mo:base/Text";
+import Nat "mo:base/Nat"; // Add this line
 import HashMap "mo:base/HashMap";
 import Debug "mo:base/Debug";
 import Iter "mo:base/Iter";
@@ -8,14 +9,15 @@ import Error "mo:base/Error";
 actor H2OMonitor {
     // Define tipos
     type WaterMeter = {
-        id: Text;
-        location: Text;
-        usage: Nat;
+        numero_medidor: Text;
+        ubicacion: Text;
+        tarifa: Text;
         status: Text;
     };
     type User = {
         id: Principal;
-        name: Text;
+        numero_cuenta: Nat;
+        direccion: Text;
     };
     type Admin = Principal;
     type Registration = {
@@ -29,13 +31,26 @@ actor H2OMonitor {
     var waterMeters = HashMap.HashMap<Text, WaterMeter>(0, Text.equal, Text.hash);
 
     // Función para registrar un nuevo usuario
-    public shared (msg) func registerUser(name: Text) : async User {
-        let user: Principal = msg.caller;
-        let newUser: User = { id = user; name = name };
-        users.put(user, newUser);
-        Debug.print("Usuario <<" # name # ">> registrado exitosamente con ID <<" # Principal.toText(user) # ">>.");
-        return newUser;
+    public shared (msg) func registerUser(numero_cuenta: Nat, direccion: Text) : async User {
+    let user: Principal = msg.caller;
+    let newUser: User = {
+        id = user;
+        numero_cuenta = numero_cuenta;
+        direccion = direccion;
     };
+    // Guarda al usuario en el mapa de usuarios
+    let existingUser = users.get(user);
+    switch (existingUser) {
+        case null {
+            Debug.print("Usuario <<" # Nat.toText(numero_cuenta) # ">> registrado exitosamente con ID <<" # Principal.toText(user) # ">>.");
+            Debug.print("Usuario <<" # Nat.toText(numero_cuenta) # ">> registrado exitosamente con ID <<" # Principal.toText(user) # ">>.");
+        };
+        case existingUser {
+            Debug.print("El usuario ya está registrado.");
+        };
+    };
+    return newUser;
+};
 
     // Función para registrar un nuevo admin
     public shared (msg) func registerAdmin() : async Admin {
@@ -54,8 +69,8 @@ actor H2OMonitor {
     public shared (msg) func addWaterMeter(waterMeter: WaterMeter) : async WaterMeter {
         let admin: Principal = msg.caller;
         if (admins.get(admin) != null) {
-            waterMeters.put(waterMeter.id, waterMeter);
-            Debug.print("Medidor de agua <<" # waterMeter.id # ">> agregado exitosamente por <<" # Principal.toText(admin) # ">>.");
+            waterMeters.put(waterMeter.numero_medidor, waterMeter);
+            Debug.print("Medidor de agua <<" # waterMeter.numero_medidor # ">> agregado exitosamente por <<" # Principal.toText(admin) # ">>.");
             return waterMeter;
         } else {
             Debug.print("El llamante no es un administrador.");
@@ -151,24 +166,6 @@ actor H2OMonitor {
         } else {
             Debug.print("El llamante no es un administrador.");
             throw Error.reject("El llamante no es un administrador.");
-        }
-    };
-
-    // Función para actualizar la información de un usuario
-    public shared (msg) func updateUser(name: Text) : async Text {
-        let user: Principal = msg.caller;
-        let currentUser = users.get(user);
-        switch currentUser {
-            case (null) {
-                Debug.print("Usuario no encontrado.");
-                return "Usuario no encontrado";
-            };
-            case (?existingUser) {
-                let updatedUser: User = { id = user; name = name };
-                users.put(user, updatedUser);
-                Debug.print("Información del usuario actualizada exitosamente.");
-                return "Información del usuario actualizada exitosamente";
-            };
         }
     };
 

@@ -1,14 +1,15 @@
 type WaterMeter = 
  record {
-   id: text;
-   location: text;
+   numero_medidor: text;
    status: text;
-   usage: nat;
+   tarifa: text;
+   ubicacion: text;
  };
 type User = 
  record {
+   direccion: text;
    id: principal;
-   name: text;
+   numero_cuenta: nat;
  };
 type Admin = principal;
 service : {
@@ -21,8 +22,7 @@ service : {
                           User;
                         }) query;
   registerAdmin: () -> (Admin);
-  registerUser: (text) -> (User);
-  updateUser: (text) -> (text);
+  registerUser: (nat, text) -> (User);
   updateWaterMeter: (text, WaterMeter) -> (text);
   viewAllWaterMeters: () -> (vec record {
                                    text;
