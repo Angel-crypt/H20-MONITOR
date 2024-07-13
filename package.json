@@ -14,5 +14,11 @@
   "type": "module",
   "workspaces": [
     "src/h2o-monitor-frontend"
-  ]
+  ],
+  "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.16.1",
+    "react-chartjs-2": "^5.2.0"
+  }
 }

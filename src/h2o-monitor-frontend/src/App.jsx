@@ -3,19 +3,18 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { createClient } from "@connect2ic/core";
 import { InternetIdentity } from "@connect2ic/core/providers/internet-identity";
 import { Connect2ICProvider } from "@connect2ic/react";
-import { useCanister, useConnect } from "@connect2ic/react";
 
 import * as h2o_monitor_backend from 'declarations/h2o-monitor-backend';
 import Auth from './components/Auth';
-import Home from './components/Home';
-import Monitor from './components/Monitor';
+import AdminDashboard from './components/AdminDashboard';
+import UserApp from './components/UserApp';
 
 const client = createClient({
   canisters: {
     h2o_monitor_backend,
   },
   providers: [
-    new InternetIdentity({ providerUrl: "http://be2us-64aaa-aaaaa-qaabq-cai.localhost:4943/" })
+    new InternetIdentity({ providerUrl: "http://bkyz2-fmaaa-aaaaa-qaaaq-cai.localhost:4943/" })
   ],
   globalProviderConfig: {
     dev: true,
@@ -27,8 +26,8 @@ const App = () => (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Auth />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/monitor" element={<Monitor />} />
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/user" element={<UserApp />} />
       </Routes>
     </BrowserRouter>
   </Connect2ICProvider>
