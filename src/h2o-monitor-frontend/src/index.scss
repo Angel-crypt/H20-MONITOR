@@ -1,0 +1,52 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #EEF7FE;
+}
+
+h1,
+h2,
+h3 {
+  color: #2A5EA3;
+}
+
+p {
+  color: #2290AE;
+}
+
+a {
+  text-decoration: none;
+  color: #33363b;
+}
+
+a:hover {
+  color: #eaeaea;
+}
+
+header,
+footer {
+  background-color: #040404;
+  color: #d8ab4e;
+}
+
+img {
+  max-width: 50vw;
+  max-height: 25vw;
+  display: block;
+  margin: auto;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  gap: 0.5em;
+  flex-flow: row wrap;
+  max-width: 40vw;
+  margin: auto;
+  align-items: baseline;
+}
+
+button[type="submit"] {
+  padding: 5px 20px;
+  margin: 10px auto;
+  float: right;
+}

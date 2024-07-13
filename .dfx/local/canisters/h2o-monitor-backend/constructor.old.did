@@ -1,0 +1,33 @@
+type WaterMeter = 
+ record {
+   id: text;
+   location: text;
+   status: text;
+   usage: nat;
+ };
+type User = 
+ record {
+   id: principal;
+   name: text;
+ };
+type Admin = principal;
+service : {
+  addWaterMeter: (WaterMeter) -> (WaterMeter);
+  deleteUser: () -> (text);
+  deleteWaterMeter: (text) -> (text);
+  listAdmins: () -> (vec principal) query;
+  listUsers: () -> (vec record {
+                          principal;
+                          User;
+                        }) query;
+  registerAdmin: () -> (Admin);
+  registerUser: (text) -> (User);
+  updateUser: (text) -> (text);
+  updateWaterMeter: (text, WaterMeter) -> (text);
+  viewAllWaterMeters: () -> (vec record {
+                                   text;
+                                   WaterMeter;
+                                 }) query;
+  viewWaterMeter: (text) -> (opt WaterMeter) query;
+  whoami: () -> (principal) query;
+}

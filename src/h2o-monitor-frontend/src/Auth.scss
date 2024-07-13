@@ -1,0 +1,40 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #EEF7FE;
+    margin: 0;
+}
+
+.heading {
+    font-size: 10rem;
+    font-weight: bold;
+    background: -webkit-linear-gradient(45deg,#2A5EA3, #5DCEE8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: left;
+    line-height: .9;
+}
+
+.subheading {
+    font-size: 3rem;
+    color: #2a5ea3;
+    font-weight: normal;
+    text-align: left;
+}
+
+.subheading strong {
+    color: #2290AE;
+    font-weight: bold;
+    font-size: 4rem;
+    text-align: left;
+}
+
+.login-text {
+    font-weight: normal;
+    font-size: 1.13rem;
+    margin-bottom: 20px;
+}
